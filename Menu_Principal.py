@@ -1,15 +1,18 @@
 import funciones
+import os
 
-funciones.Creararchivo()
+if not os.path.exists("inventario.csv"):
+    funciones.Creararchivo()
 
-print(".:Menu:.")
-print("1- Agregar inventario nuevo\n2- Agregar mas piezas\n3- Venta\n4- Mostrar producto existente\n5- Salir")
+
 
 opc = 0
 while(opc != 5):
+    print(".:Menu:.")
+    print("1- Agregar inventario nuevo\n2- Agregar mas piezas\n3- Venta\n4- Mostrar producto existente\n5- Salir")
     opc = int(input("Selecciona una opcion nueva: "))
     if (opc == 1):
-        print("Selecione el producto: ")
+        funciones.AgregarProductoNuevo()
     if (opc == 2):
         print("Modificar stock: ")
     if (opc == 3):
