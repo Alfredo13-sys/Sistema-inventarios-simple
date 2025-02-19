@@ -1,4 +1,5 @@
 import csv
+import os
 
 productos = list()
 
@@ -41,11 +42,72 @@ def LeerStock():
             productos.append(linea)
     return productos
 
-def ModificarStock(productos):
+def ModificarStock():
+    i=1
     stock = LeerStock()
-    print(stock)
+    for linea in stock:
+        print(f'{i}-{linea}')
+        i+=1
     modificar = int(input("Que elemento deseas modificar"))
     if modificar <= len(stock):
-        print(stock[modificar-1])
+        diccionario = stock[modificar-1]
+        opc = int(input("Que deseas modificar:\n1-nombre\n2-stock\n3-precio\n"))
+        if opc == 1:
+            diccionario['nombre']=input('nuevo nombre: ')
+            print(diccionario)
+        elif opc == 2:
+            diccionario['stock']=input('nuevo numero de piezas: ')
+            print(diccionario)
+        elif opc == 3:
+            diccionario['precio']=input('nuevo precio: ')
+            print(diccionario)
+        else:
+            print('opcion no valida')
+        stock[modificar-1]=diccionario
+        SobreEscribir(stock)
 
-ModificarStock(productos)
+def SobreEscribir(nueva_lista):
+    if os.path.exists('inventario.csv'):
+        with open('inventario.csv','w',newline='') as fichero:
+            encabezado = ['nombre','stock','precio']
+            escritor = csv.DictWriter(fichero,fieldnames=encabezado)
+            escritor.writeheader()
+            escritor.writerows(nueva_lista)
+
+def venta():
+    i=1
+    stock = LeerStock()
+    print('Que producto se vendio')
+    for producto in stock:
+        print(f"{i}- {producto['nombre']}")
+        i+=1
+    opc = int(input('Que producto se vendio: '))
+    if opc ==1:
+        diccionario = stock[opc-1]
+        venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
+        stock_viejo = diccionario['stock']
+        stock_viejo = int(stock_viejo)
+        if stock_viejo-venta >= 0 :
+            diccionario['stock'] = stock_viejo-venta
+            SobreEscribir(stock)
+            print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
+    elif opc ==2:
+        diccionario = stock[opc-1]
+        venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
+        stock_viejo = diccionario['stock']
+        stock_viejo = int(stock_viejo)
+        if stock_viejo-venta >= 0 :
+            diccionario['stock'] = stock_viejo-venta
+            SobreEscribir(stock)
+            print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
+    elif opc ==3:
+        diccionario = stock[opc-1]
+        venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
+        stock_viejo = diccionario['stock']
+        stock_viejo = int(stock_viejo)
+        if stock_viejo-venta >= 0 :
+            diccionario['stock'] = stock_viejo-venta
+            SobreEscribir(stock)
+            print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
+    else:
+        print('opcion no valida')

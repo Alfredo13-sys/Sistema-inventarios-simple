@@ -14,9 +14,9 @@ while(opc != 5):
     if (opc == 1):
         funciones.AgregarProductoNuevo()
     if (opc == 2):
-        print("Modificar stock: ")
+        funciones.ModificarStock()
     if (opc == 3):
-        print("Que producto se vendio: ")
+        funciones.venta()
     if (opc == 4):
         print("Este es el producto existente: ")
     if (opc == 5):
