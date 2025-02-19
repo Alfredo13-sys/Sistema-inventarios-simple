@@ -5,6 +5,7 @@ productos = list()
 
 def AgregarProductoNuevo():
     opc = 0
+    productos.clear()
     while(opc != 2):
         opc = int(input('1- agregar producto\n2- salir\n'))
         if (opc == 1):
@@ -36,6 +37,7 @@ def Creararchivo():
         escritor.writeheader()
 
 def LeerStock():
+    productos.clear()
     with open('inventario.csv','r',newline='') as fichero:
         lector = csv.DictReader(fichero)
         for linea in lector:
@@ -82,25 +84,7 @@ def venta():
         print(f"{i}- {producto['nombre']}")
         i+=1
     opc = int(input('Que producto se vendio: '))
-    if opc ==1:
-        diccionario = stock[opc-1]
-        venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
-        stock_viejo = diccionario['stock']
-        stock_viejo = int(stock_viejo)
-        if stock_viejo-venta >= 0 :
-            diccionario['stock'] = stock_viejo-venta
-            SobreEscribir(stock)
-            print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
-    elif opc ==2:
-        diccionario = stock[opc-1]
-        venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
-        stock_viejo = diccionario['stock']
-        stock_viejo = int(stock_viejo)
-        if stock_viejo-venta >= 0 :
-            diccionario['stock'] = stock_viejo-venta
-            SobreEscribir(stock)
-            print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
-    elif opc ==3:
+    if opc <= len(stock):
         diccionario = stock[opc-1]
         venta = int(input(f"Cuantos {diccionario['nombre']} se vendieron: "))
         stock_viejo = diccionario['stock']
@@ -111,3 +95,9 @@ def venta():
             print(f'Quedan {stock_viejo-venta} {diccionario['nombre']}')
     else:
         print('opcion no valida')
+    
+def MostrarProducto():
+    inventario = LeerStock()
+    for producto in inventario:
+        print(producto)
+    productos.clear()

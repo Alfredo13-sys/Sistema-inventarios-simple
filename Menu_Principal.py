@@ -9,7 +9,7 @@ if not os.path.exists("inventario.csv"):
 opc = 0
 while(opc != 5):
     print(".:Menu:.")
-    print("1- Agregar inventario nuevo\n2- Agregar mas piezas\n3- Venta\n4- Mostrar producto existente\n5- Salir")
+    print("1- Agregar inventario nuevo\n2- Modificar producto\n3- Venta\n4- Mostrar producto existente\n5- Salir")
     opc = int(input("Selecciona una opcion nueva: "))
     if (opc == 1):
         funciones.AgregarProductoNuevo()
@@ -18,7 +18,7 @@ while(opc != 5):
     if (opc == 3):
         funciones.venta()
     if (opc == 4):
-        print("Este es el producto existente: ")
+        funciones.MostrarProducto()
     if (opc == 5):
         print("salir")
 
